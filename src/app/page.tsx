@@ -7,16 +7,16 @@ export default function Home() {
       <nav className="border-b border-slate-200 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <span className="text-lg font-bold text-slate-900">GST Recon</span>
-          <div className="flex gap-3">
+          <div className="flex items-center gap-5 text-sm">
             <Link
               href="/login"
-              className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+              className="text-slate-500 hover:text-slate-900 transition-colors"
             >
               Log in
             </Link>
             <Link
               href="/signup"
-              className="px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              className="text-slate-500 hover:text-slate-900 transition-colors"
             >
               Sign up
             </Link>
@@ -28,12 +28,13 @@ export default function Home() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-            Reconcile your GST returns in seconds
+            GST reconciliation that never sees your data
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Upload your GSTR-2A and Purchase Register. Our tool automatically
-            matches invoices, flags mismatches, and finds missing entries — so
-            you can file with confidence.
+            Built for CAs managing multiple client GSTINs. Drop in a GSTR-2A and
+            Purchase Register — we match invoices, flag mismatches, and surface
+            missing entries, all inside your browser. No uploads, no accounts,
+            no data-handoff anxiety.
           </p>
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-800">
@@ -58,7 +59,10 @@ export default function Home() {
           >
             Try it now — free
           </Link>
-          <p className="text-sm text-slate-400">No signup required. Export needs an email.</p>
+          <p className="text-sm text-slate-400">
+            No signup required. Email collected at export is only used to send
+            you the file — never shared, never marketed to.
+          </p>
 
           <div className="pt-4 border-t border-slate-200 max-w-md mx-auto">
             <p className="text-sm font-medium text-slate-700 mb-3">
