@@ -5,22 +5,8 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50">
       {/* Nav */}
       <nav className="border-b border-slate-200 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16">
           <span className="text-lg font-bold text-slate-900">GST Recon</span>
-          <div className="flex items-center gap-5 text-sm">
-            <Link
-              href="/login"
-              className="text-slate-500 hover:text-slate-900 transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="text-slate-500 hover:text-slate-900 transition-colors"
-            >
-              Sign up
-            </Link>
-          </div>
         </div>
       </nav>
 
@@ -105,6 +91,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Positioning */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+        <p className="text-center text-sm text-slate-500 italic">
+          Built after ClearTax&rsquo;s 5x price hike — a free, open-source
+          alternative for CAs who just need reconciliation, without a
+          subscription.
+        </p>
+      </section>
+
       {/* How it works */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-2xl font-bold text-slate-900 text-center mb-10">
@@ -144,6 +139,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <h2 className="text-2xl font-bold text-slate-900 text-center mb-10">
+          Frequently asked questions
+        </h2>
+        <div className="space-y-4">
+          <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
+              Does it work with GSTR-2B too?
+              <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Not yet — currently GSTR-2A JSON only. GSTR-2B support is on the
+              roadmap; if it&rsquo;s blocking you, let me know and I&rsquo;ll
+              prioritise it.
+            </p>
+          </details>
+
+          <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
+              My purchase register is in Tally — will it work?
+              <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Yes, as long as you can export from Tally to Excel (.xlsx) or CSV.
+              The column detector is flexible about header names — anything
+              matching GSTIN, Invoice No, Invoice Date, Taxable Value, CGST,
+              SGST, IGST, and Total gets picked up automatically.
+            </p>
+          </details>
+
+          <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
+              Can it handle multiple GSTINs?
+              <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              A single GSTR-2A typically contains invoices from many supplier
+              GSTINs — those are all reconciled together in one run. If you mean
+              running reconciliation for several different client companies,
+              that&rsquo;s one run per client for now.
+            </p>
+          </details>
+
+          <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
+              What&rsquo;s the maximum file size?
+              <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              There&rsquo;s no hard cap. Because everything runs in your
+              browser, the limit is your device&rsquo;s memory. Files with a
+              few thousand invoices run comfortably; tens of thousands may slow
+              things down depending on your machine.
+            </p>
+          </details>
+
+          <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
+              Can I save reconciliation history?
+              <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Not currently — the tool is deliberately stateless so nothing is
+              stored anywhere. Export the Excel report and save the file
+              locally. If logged-in history would be useful to you, tell me and
+              I&rsquo;ll build it.
+            </p>
+          </details>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-slate-200 py-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
@@ -170,6 +237,13 @@ export default function Home() {
             </svg>
             Open source on GitHub
           </a>
+          <span className="hidden sm:inline text-slate-300">·</span>
+          <Link
+            href="/login"
+            className="text-slate-500 hover:text-slate-900 hover:underline"
+          >
+            Log in
+          </Link>
         </div>
       </footer>
     </div>
