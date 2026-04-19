@@ -39,6 +39,29 @@ export default function UploadPanel({
           onFileSelect={onPRSelect}
         />
       </div>
+      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-slate-600">
+        <span>No real data handy?</span>
+        <a
+          href="/samples/sample-gstr2a.json"
+          download
+          className="inline-flex items-center gap-1 font-medium text-indigo-600 hover:text-indigo-700 hover:underline"
+        >
+          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v9.586l3.293-3.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L9 13.586V4a1 1 0 011-1z" clipRule="evenodd" />
+          </svg>
+          Sample GSTR-2A
+        </a>
+        <a
+          href="/samples/sample-purchase-register.xlsx"
+          download
+          className="inline-flex items-center gap-1 font-medium text-indigo-600 hover:text-indigo-700 hover:underline"
+        >
+          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v9.586l3.293-3.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L9 13.586V4a1 1 0 011-1z" clipRule="evenodd" />
+          </svg>
+          Sample Purchase Register
+        </a>
+      </div>
       <div className="flex justify-center">
         <button
           onClick={onReconcile}
