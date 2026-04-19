@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# reconcilegst
 
-## Getting Started
+Browser-based GST reconciliation for Indian businesses and CAs. Upload your GSTR-2A (JSON) and Purchase Register (Excel), and get a reconciliation report — matched, mismatched, and missing invoices — in seconds.
 
-First, run the development server:
+**Live:** https://www.reconcilegst.in
+
+## Why this exists
+
+Most GST reconciliation tools ask you to upload sensitive financial data to their servers. This one doesn't. Parsing, matching, and the export all run locally in your browser — your GSTR-2A and Purchase Register never touch our infrastructure. You can verify this by reading the code (see `src/hooks/useReconciliation.ts` and `src/lib/`).
+
+## What it does
+
+- Parses GSTR-2A JSON (handles B2B, CDN/CDNR, and the camt/csamt, samt/ssamt field variants).
+- Parses Purchase Register Excel/CSV with flexible column-name detection.
+- Matches invoices by GSTIN + invoice number + amount + date, with fuzzy tolerance for common mismatches (date drift, rounding, invoice-number formatting like `BILL/104` vs `BILL104`).
+- Produces a report with three buckets: matched, mismatched (amount/date differs), and missing on either side.
+- Exports the full report as Excel.
+
+## Stack
+
+- Next.js 14 (App Router) on Vercel
+- TypeScript
+- Supabase (auth only — no data is stored there from the reconciliation flow)
+- `xlsx` for Excel read/write, all client-side
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a `.env.local` with your own Supabase project if you want auth to work locally:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The core reconciliation flow at `/reconcile` works without any env setup.
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [Ishwar Iyer](https://www.linkedin.com/in/ishwar-iyer-a33b9a1b4/).
