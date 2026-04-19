@@ -36,7 +36,7 @@ export default function Home() {
             missing entries, all inside your browser. No uploads, no accounts,
             no data-handoff anxiety.
           </p>
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center gap-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-800">
               <svg
                 className="h-4 w-4 text-emerald-600"
@@ -52,6 +52,17 @@ export default function Home() {
               </svg>
               100% private — your files never leave your browser
             </div>
+            <a
+              href="https://github.com/ishwar-iyer12/reconcilegst"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-900 hover:underline"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.1c-3.2.7-3.87-1.36-3.87-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.95.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.03 11.03 0 015.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.26 5.69.41.35.78 1.04.78 2.1v3.12c0 .31.21.67.79.56 4.57-1.52 7.85-5.83 7.85-10.9C23.5 5.73 18.27.5 12 .5z" />
+              </svg>
+              Verify the code yourself on GitHub
+            </a>
           </div>
           <Link
             href="/reconcile"
@@ -134,8 +145,32 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
-        GST Recon — Built for Indian businesses
+      <footer className="border-t border-slate-200 py-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
+          <span>
+            Built by{" "}
+            <a
+              href="https://www.linkedin.com/in/ishwar-iyer-a33b9a1b4/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-slate-700 hover:text-slate-900 hover:underline"
+            >
+              Ishwar Iyer
+            </a>
+          </span>
+          <span className="hidden sm:inline text-slate-300">·</span>
+          <a
+            href="https://github.com/ishwar-iyer12/reconcilegst"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-medium text-slate-700 hover:text-slate-900 hover:underline"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.1c-3.2.7-3.87-1.36-3.87-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.95.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.03 11.03 0 015.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.26 5.69.41.35.78 1.04.78 2.1v3.12c0 .31.21.67.79.56 4.57-1.52 7.85-5.83 7.85-10.9C23.5 5.73 18.27.5 12 .5z" />
+            </svg>
+            Open source on GitHub
+          </a>
+        </div>
       </footer>
     </div>
   );
