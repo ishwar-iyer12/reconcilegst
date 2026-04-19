@@ -1,0 +1,119 @@
+{
+  "data": {
+    "docdata": {
+      "b2b": [
+        {
+          "ctin": "27AABCU9603R1ZM",
+          "inv": [
+            {
+              "inum": "INV-001",
+              "idt": "15-01-2024",
+              "val": 11800,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 10000,
+                    "camt": 900,
+                    "samt": 900,
+                    "iamt": 0
+                  }
+                }
+              ]
+            },
+            {
+              "inum": "INV-002",
+              "idt": "20-01-2024",
+              "val": 23600,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 20000,
+                    "camt": 1800,
+                    "samt": 1800,
+                    "iamt": 0
+                  }
+                }
+              ]
+            },
+            {
+              "inum": "INV-003",
+              "idt": "25-01-2024",
+              "val": 5900,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 5000,
+                    "camt": 450,
+                    "samt": 450,
+                    "iamt": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ctin": "07AAACN1234F1ZK",
+          "inv": [
+            {
+              "inum": "BILL/104",
+              "idt": "10-02-2024",
+              "val": 59000,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 50000,
+                    "camt": 0,
+                    "samt": 0,
+                    "iamt": 9000
+                  }
+                }
+              ]
+            },
+            {
+              "inum": "BILL/105",
+              "idt": "15-02-2024",
+              "val": 35400,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 30000,
+                    "camt": 0,
+                    "samt": 0,
+                    "iamt": 5400
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ctin": "33AADCS5678G1ZQ",
+          "inv": [
+            {
+              "inum": "TXN-2024-001",
+              "idt": "05-03-2024",
+              "val": 17700,
+              "itms": [
+                {
+                  "num": 1,
+                  "itm_det": {
+                    "txval": 15000,
+                    "camt": 1350,
+                    "samt": 1350,
+                    "iamt": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
