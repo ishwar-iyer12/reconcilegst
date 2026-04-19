@@ -112,8 +112,8 @@ export default function Home() {
             </div>
             <h3 className="font-semibold text-slate-900 mb-2">Upload files</h3>
             <p className="text-sm text-slate-600">
-              Drop your GSTR-2A JSON (from the GST portal) and Purchase Register
-              Excel file.
+              Drop your GSTR-2A (JSON or Excel, straight from the GST portal)
+              and your Purchase Register.
             </p>
           </div>
           <div className="bg-white rounded-xl border border-slate-200 p-6 text-center">
@@ -147,13 +147,14 @@ export default function Home() {
         <div className="space-y-4">
           <details className="group bg-white rounded-xl border border-slate-200 p-5 open:shadow-sm">
             <summary className="flex cursor-pointer items-center justify-between font-semibold text-slate-900">
-              Does it work with GSTR-2B too?
+              What GSTR-2A formats do you accept?
               <span className="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▾</span>
             </summary>
             <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-              Not yet — currently GSTR-2A JSON only. GSTR-2B support is on the
-              roadmap; if it&rsquo;s blocking you, let me know and I&rsquo;ll
-              prioritise it.
+              Whatever the portal gives you — JSON, Excel (.xlsx / .xls), or
+              CSV. Download in your preferred format and drop it in. GSTR-2B
+              support is on the roadmap; if it&rsquo;s blocking you, let me
+              know and I&rsquo;ll prioritise it.
             </p>
           </details>
 

@@ -3,8 +3,8 @@ import { NormalizedRecord } from "@/lib/matching/types";
 import {
   normalizeGSTIN,
   normalizeInvoiceNumber,
-  parseDate,
 } from "@/lib/matching/normalizers";
+import { parseExcelDate } from "./excelDate";
 
 type ColumnMatcher = (header: string) => boolean;
 
@@ -33,22 +33,6 @@ function mapColumns(
   }
 
   return mapping;
-}
-
-function parseExcelDate(value: unknown): Date {
-  if (value instanceof Date) {
-    // cellDates produces UTC dates — extract UTC components and create at noon local
-    return new Date(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate(), 12, 0, 0);
-  }
-  if (typeof value === "number") {
-    // Excel serial date number — parse_date_code gives date components
-    const parsed = XLSX.SSF.parse_date_code(value);
-    return new Date(parsed.y, parsed.m - 1, parsed.d, 12, 0, 0);
-  }
-  if (typeof value === "string") {
-    return parseDate(value);
-  }
-  throw new Error(`Cannot parse date value: ${value}`);
 }
 
 export async function parsePurchaseRegister(
