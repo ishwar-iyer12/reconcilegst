@@ -60,7 +60,37 @@ export default function FileUploadZone({
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
       />
       <div className="space-y-2">
-        <div className="text-3xl">{file ? "\u2705" : "\uD83D\uDCC4"}</div>
+        <div className="flex justify-center">
+          {file ? (
+            <svg
+              className="h-10 w-10 text-emerald-600"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <path d="M22 4 12 14.01l-3-3" />
+            </svg>
+          ) : (
+            <svg
+              className="h-10 w-10 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          )}
+        </div>
         <p className="font-medium text-slate-700">{label}</p>
         {file ? (
           <p className="text-sm text-green-700">
