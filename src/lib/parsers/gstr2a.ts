@@ -126,28 +126,83 @@ function cleanHeader(s: string): string {
     .trim();
 }
 
-function findHeaderRow(rows: unknown[][]): { index: number; headers: string[] } {
-  const maxScan = Math.min(rows.length, 25);
-  for (let i = 0; i < maxScan; i++) {
-    const cells = rows[i].map((c) => (c == null ? "" : cleanHeader(String(c))));
-    const matches = Object.values(EXCEL_COLUMN_MATCHERS).filter((m) =>
-      cells.some((c) => c && m(c))
-    ).length;
-    if (matches >= 3) return { index: i, headers: cells };
-  }
-  throw new Error(
-    "Could not locate header row in GSTR-2A Excel. Expected columns like GSTIN, Invoice Number, Invoice Date, Taxable Value, Integrated/Central/State Tax."
-  );
+function scoreHeaderRow(row: unknown[]): {
+  score: number;
+  headers: string[];
+} {
+  const headers = row.map((c) => (c == null ? "" : cleanHeader(String(c))));
+  const score = Object.values(EXCEL_COLUMN_MATCHERS).filter((m) =>
+    headers.some((h) => h && m(h))
+  ).length;
+  return { score, headers };
 }
 
-function pickB2BSheet(wb: XLSX.WorkBook): string {
-  const exact = wb.SheetNames.find((n) => /^b2b$/i.test(n.trim()));
-  if (exact) return exact;
-  const b2b = wb.SheetNames.find(
-    (n) => /b2b/i.test(n) && !/b2ba|amend/i.test(n)
-  );
-  if (b2b) return b2b;
-  return wb.SheetNames[0];
+function findHeaderRow(
+  rows: unknown[][]
+): { index: number; headers: string[]; score: number } | null {
+  const maxScan = Math.min(rows.length, 25);
+  let best: { index: number; headers: string[]; score: number } | null = null;
+  for (let i = 0; i < maxScan; i++) {
+    const { score, headers } = scoreHeaderRow(rows[i]);
+    if (score >= 3 && (!best || score > best.score)) {
+      best = { index: i, headers, score };
+    }
+  }
+  return best;
+}
+
+const SKIP_SHEET_PATTERNS = /instruction|summary|^reco$|dashboard|master|help|^info/i;
+
+function pickGSTR2ASheet(wb: XLSX.WorkBook): {
+  name: string;
+  rows: unknown[][];
+  headerIdx: number;
+  headers: string[];
+} {
+  let best: {
+    name: string;
+    rows: unknown[][];
+    headerIdx: number;
+    headers: string[];
+    score: number;
+  } | null = null;
+
+  for (const name of wb.SheetNames) {
+    if (SKIP_SHEET_PATTERNS.test(name)) continue;
+    const sheet = wb.Sheets[name];
+    const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, {
+      header: 1,
+      defval: null,
+      blankrows: false,
+    });
+    if (rows.length === 0) continue;
+    const hit = findHeaderRow(rows);
+    if (!hit) continue;
+    if (!best || hit.score > best.score) {
+      best = {
+        name,
+        rows,
+        headerIdx: hit.index,
+        headers: hit.headers,
+        score: hit.score,
+      };
+    }
+  }
+
+  if (!best) {
+    throw new Error(
+      `Could not find a GSTR-2A data sheet in this workbook. Sheets scanned: ${wb.SheetNames.join(
+        ", "
+      )}. Expected a sheet with columns like GSTIN, Invoice Number, Invoice Date, Taxable Value, and tax amounts.`
+    );
+  }
+
+  return {
+    name: best.name,
+    rows: best.rows,
+    headerIdx: best.headerIdx,
+    headers: best.headers,
+  };
 }
 
 interface AggregatedInvoice {
@@ -164,21 +219,9 @@ interface AggregatedInvoice {
 
 async function parseGSTR2AExcel(file: File): Promise<NormalizedRecord[]> {
   const buffer = await file.arrayBuffer();
-  const wb = XLSX.read(buffer, { type: "array", cellDates: true });
-  const sheetName = pickB2BSheet(wb);
-  const sheet = wb.Sheets[sheetName];
+  const wb = XLSX.read(buffer, { type: "array", cellDates: true, bookVBA: false });
 
-  const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, {
-    header: 1,
-    defval: null,
-    blankrows: false,
-  });
-
-  if (rows.length === 0) {
-    throw new Error("GSTR-2A Excel file is empty.");
-  }
-
-  const { index: headerIdx, headers } = findHeaderRow(rows);
+  const { rows, headerIdx, headers } = pickGSTR2ASheet(wb);
 
   const colIdx: Record<string, number> = {};
   for (const [field, matcher] of Object.entries(EXCEL_COLUMN_MATCHERS)) {
@@ -286,10 +329,16 @@ async function parseGSTR2AExcel(file: File): Promise<NormalizedRecord[]> {
 export async function parseGSTR2A(file: File): Promise<NormalizedRecord[]> {
   const name = file.name.toLowerCase();
   if (name.endsWith(".json")) return parseGSTR2AJson(file);
-  if (name.endsWith(".xlsx") || name.endsWith(".xls") || name.endsWith(".csv")) {
+  if (
+    name.endsWith(".xlsx") ||
+    name.endsWith(".xlsm") ||
+    name.endsWith(".xlsb") ||
+    name.endsWith(".xls") ||
+    name.endsWith(".csv")
+  ) {
     return parseGSTR2AExcel(file);
   }
   throw new Error(
-    `Unsupported GSTR-2A file type: ${file.name}. Upload a .json, .xlsx, .xls, or .csv file.`
+    `Unsupported GSTR-2A file type: ${file.name}. Upload a .json, .xlsx, .xlsm, .xls, or .csv file.`
   );
 }

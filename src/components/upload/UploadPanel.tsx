@@ -26,7 +26,7 @@ export default function UploadPanel({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FileUploadZone
           label="GSTR-2A File"
-          accept=".json,.xlsx,.xls,.csv"
+          accept=".json,.xlsx,.xlsm,.xlsb,.xls,.csv"
           hint="Drop your GSTR-2A JSON or Excel file here (straight from the portal)"
           file={gstr2aFile}
           onFileSelect={onGSTR2ASelect}
