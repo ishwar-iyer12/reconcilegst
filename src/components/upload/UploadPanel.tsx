@@ -32,9 +32,9 @@ export default function UploadPanel({
           onFileSelect={onGSTR2ASelect}
         />
         <FileUploadZone
-          label="Purchase Register Excel"
-          accept=".xlsx,.xls,.csv"
-          hint="Drop your Purchase Register Excel file here or click to browse"
+          label="Purchase Register"
+          accept=".xlsx,.xlsm,.xlsb,.xls,.csv"
+          hint="Drop your Purchase Register Excel or CSV here (Tally, Zoho, custom — all work)"
           file={prFile}
           onFileSelect={onPRSelect}
         />
